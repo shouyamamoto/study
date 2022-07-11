@@ -11,8 +11,9 @@ func main() {
 	e := echo.New()
 	e.HideBanner = true
 
-	arrowOrigins := []string{"http://localhost:8080"}
+	arrowOrigins := []string{"http://localhost:1234"}
 	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: arrowOrigins,
 		AllowMethods: []string{"GET", "DELETE", "OPTIONS"},
@@ -21,5 +22,5 @@ func main() {
 	e.GET("/", database.GetAlbums)
 	e.DELETE("/albums/delete/:id", database.Delete)
 
-	e.Logger.Fatal(e.Start(":8081"))
+	e.Logger.Fatal(e.Start(":8888"))
 }

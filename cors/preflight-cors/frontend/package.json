@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server --cors"
+    "start": "http-server --cors -p 1234"
   },
   "keywords": [],
   "author": "",

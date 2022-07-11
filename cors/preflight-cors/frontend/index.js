@@ -3,7 +3,7 @@ deleteButton = document.getElementById("deleteAlbum")
 albums = document.getElementById("albums")
 
 async function getAlbum() {
-    const res = await fetch("http://localhost:8081/")
+    const res = await fetch("http://localhost:8888/")
     const data = await res.json()
 
     while (albums.firstChild) {
@@ -19,7 +19,8 @@ async function getAlbum() {
 
 async function deleteAlbum() {
     id = document.getElementById("id")  
-    await fetch(`http://localhost:8081/albums/delete/${id.value}`,{method: "DELETE"})
+    await fetch(`http://localhost:8888/albums/delete/${id.value}`,{method: "DELETE"})
+    id.value = ""
 }
 
 getButton.addEventListener("click", getAlbum)
