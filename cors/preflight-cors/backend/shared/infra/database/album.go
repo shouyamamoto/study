@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"github/shouyamamoto/study/db"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 
@@ -49,6 +50,39 @@ func GetAlbums(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, albums)
+}
+
+func AddAlbum(c echo.Context) error {
+	albs := []db.Album{
+		{
+			Title:  "Blue Train",
+			Artist: "John Coltrane",
+			Price:  56.99,
+		},
+		{
+			Title:  "Giant Steps",
+			Artist: "John Coltrane",
+			Price:  63.99,
+		},
+		{
+			Title:  "Jeru",
+			Artist: "Gerry Mulligan",
+			Price:  17.99,
+		},
+		{
+			Title:  "Sarah Vaughan",
+			Artist: "Sarah Vaughan",
+			Price:  34.98,
+		},
+	}
+	i := rand.Intn(4)
+	d := dbConn()
+	_, err := d.Exec("INSERT INTO album (title, artist, price) VALUES (?, ?, ?)", albs[i].Title, albs[i].Artist, albs[i].Price)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func Delete(c echo.Context) error {

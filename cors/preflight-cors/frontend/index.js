@@ -1,4 +1,5 @@
 getButton = document.getElementById("getAlbum")
+addButton = document.getElementById("addAlbum")
 deleteButton = document.getElementById("deleteAlbum")
 albums = document.getElementById("albums")
 
@@ -17,6 +18,10 @@ async function getAlbum() {
     })
 }
 
+async function addAlbum() {
+    await fetch("http://localhost:8888/", {method: "POST"})
+}
+
 async function deleteAlbum() {
     id = document.getElementById("id")  
     await fetch(`http://localhost:8888/albums/delete/${id.value}`,{method: "DELETE"})
@@ -24,4 +29,5 @@ async function deleteAlbum() {
 }
 
 getButton.addEventListener("click", getAlbum)
+addButton.addEventListener("click", addAlbum)
 deleteButton.addEventListener("click", deleteAlbum)
