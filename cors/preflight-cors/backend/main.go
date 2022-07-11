@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github/shouyamamoto/study/controller"
+	"github/shouyamamoto/study/shared/infra/database"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -15,10 +15,11 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: arrowOrigins,
-		AllowCredentials: true,
+		AllowMethods: []string{"GET", "DELETE", "OPTIONS"},
 	}))
 
-	e.GET("/users", controller.GetUsers)
+	e.GET("/", database.GetAlbums)
+	e.DELETE("/albums/delete/:id", database.Delete)
 
 	e.Logger.Fatal(e.Start(":8081"))
 }

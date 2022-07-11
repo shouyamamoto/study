@@ -1,17 +1,26 @@
-button = document.getElementById("getUser")
-users = document.getElementById("users")
+getButton = document.getElementById("getAlbum")
+deleteButton = document.getElementById("deleteAlbum")
+albums = document.getElementById("albums")
 
-async function getUsers() {
-    const res = await fetch("http://localhost:8081/users", {
-        credentials: "include",
-    })
+async function getAlbum() {
+    const res = await fetch("http://localhost:8081/")
     const data = await res.json()
 
-    data.forEach(u => {
+    while (albums.firstChild) {
+        albums.removeChild(albums.firstChild)
+    }
+
+    data.forEach(d => {
         item = document.createElement("li")
-        item.innerText = `${u.name}は${u.age}歳です。`
-        users.appendChild(item)
+        item.innerText = `ID: ${d.ID} アルバム名:${d.title} 作者:${d.artist} 価格:${d.price}`
+        albums.appendChild(item)
     })
 }
 
-button.addEventListener("click", getUsers)
+async function deleteAlbum() {
+    id = document.getElementById("id")  
+    await fetch(`http://localhost:8081/albums/delete/${id.value}`,{method: "DELETE"})
+}
+
+getButton.addEventListener("click", getAlbum)
+deleteButton.addEventListener("click", deleteAlbum)
