@@ -16,10 +16,11 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: arrowOrigins,
-		AllowMethods: []string{"GET", "DELETE", "OPTIONS"},
+		AllowMethods: []string{"GET", "POST", "DELETE", "OPTIONS"},
 	}))
 
 	e.GET("/", database.GetAlbums)
+	e.POST("/", database.AddAlbum)
 	e.DELETE("/albums/delete/:id", database.Delete)
 
 	e.Logger.Fatal(e.Start(":8888"))
